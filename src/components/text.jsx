@@ -28,13 +28,18 @@ const Text= () => {
         if (currentCharIndex < text.length) {
             const keyPressHandler = (evt) => {
                 const [newText, newCurrentIndex, newMistakes] = compareChars(text, currentCharIndex, evt.key, mistakes);
-                dispatch(setCurrentCharIndex(newCurrentIndex)); //работает только на правильный ввод
-                dispatch(setText(newText)); //пока не введешь нужную букву, прогресс не идет
-                dispatch(setMistakes(newMistakes)); //работает хорошо
+                dispatch(setCurrentCharIndex(newCurrentIndex)); 
+                dispatch(setText(newText)); 
+                dispatch(setMistakes(newMistakes)); 
                 dispatch(increasePressingCount()); //не уверена, что норм работает
+                // console.log(compareChars(text, currentCharIndex, evt.key, mistakes));
             }
             document.addEventListener('keypress', keyPressHandler);
-
+            window.addEventListener('keydown', (evt) => {  
+                if (evt.keyCode === 32 && evt.target === document.body) {  
+                  evt.preventDefault();  
+                } 
+            })
             return ()=> {
                 document.removeEventListener('keypress', keyPressHandler);
             }
@@ -52,10 +57,9 @@ const Text= () => {
             <div>
                 {text.map((item, index) => {
                     return (
-                        <Char className={item.class} key={index}>{item.char}</Char>
-                        // <span className={item.class} key={index}>
-                        //     {item.char}
-                        // </span>
+                        <span className={item.class} key={index}
+                        style={{fontColor:(item.class === 'right-char'? 'green' : 'red')}}>
+                          {item.char}</span>
                     )
                 })}
             </div>

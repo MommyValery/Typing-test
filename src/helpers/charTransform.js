@@ -24,10 +24,12 @@ export const compareChars = (array, currentIndex, pressedKey, mistakes) => {
             }
         } else if (index === currentIndex && item.char !== pressedKey) {
             newMistakes += 1;
+            newCurrentIndex += 1;
             return {
                 ...item,
                 class: 'wrong-char',
             }
+           
         }
         return item;
     })
