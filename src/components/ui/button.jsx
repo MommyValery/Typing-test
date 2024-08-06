@@ -19,7 +19,7 @@ const StyledButton = styled(Button)`
   position: relative;
   overflow: hidden;
   z-index: 1;
-  width: 10%;
+  width: 15%;
   background-color: gray;
 `;
 

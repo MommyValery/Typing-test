@@ -13,7 +13,7 @@ reducers: {
         state.isTimerOn = action.payload;
     },
     decreaseSeconds (state) {
-        state.seconds = state.seconds --;
+        state.seconds = state.seconds - 1;
     },
     setSeconds (state, action) {
         state.seconds = action.payload;

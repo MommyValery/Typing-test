@@ -14,12 +14,13 @@ const Stats = ({children}) => {
 
 // подсчет скорости и точности
   useEffect(()=>{
+    console.log(pressingCount);
     const correctChars = pressingCount - mistakes;
     setAccuracy(accuracyCounting(mistakes, pressingCount));
     setSpeed(speedCounting(correctChars, seconds));
   }, [mistakes, pressingCount, seconds])
 
-//увеличение количества секунд
+//уменьшение количества секунд
   useEffect (() => {
     if (isTimerOn) {
         const timer = setTimeout(() => {

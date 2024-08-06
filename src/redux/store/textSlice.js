@@ -36,7 +36,7 @@ const textSlice = createSlice({
         state.mistakes = action.payload;
       },
       increasePressingCount(state) {
-        state.pressingCount = state.pressingCount++;
+        state.pressingCount = state.pressingCount + 1;
       },
       resetTextState(state) {
         state.currentCharIndex= 0;

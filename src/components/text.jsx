@@ -7,7 +7,7 @@ import { setTimerOn } from "../redux/store/timerSlice";
 import { setIsTestFinished } from "../redux/store/testSlice";
 import Timer from "./ui/timer";
 
-const Text= ({ onComplete}) => {
+const Text= () => {
     const dispatch = useDispatch();
     const text = useSelector(state => state.textSlice.text);
     const isLoading = useSelector(state => state.textSlice.isLoading);
@@ -54,7 +54,7 @@ const Text= ({ onComplete}) => {
 
     return (
         <div>
-            <Timer seconds={seconds} onComplete = {onComplete}/>
+            <Timer seconds={seconds}/>
             {
                 error && 
                 <p>{error}</p>

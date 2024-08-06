@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components"
 import { setIsTestFinished } from "../../redux/store/testSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const TimerContainer = styled.div`
 padding-left: 20px;
@@ -15,10 +16,11 @@ color: #ffffff;
 
 const Timer = ({seconds}) => {
   const [timeLeft, setTimeLeft] = useState(seconds);
+  const dispatch = useDispatch();
 
  useEffect(()=> {
     if (timeLeft === 0 ) {
-        setIsTestFinished(true);
+        dispatch(setIsTestFinished(true));
         return;
     }
 
