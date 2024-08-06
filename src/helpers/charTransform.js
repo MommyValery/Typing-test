@@ -34,4 +34,19 @@ export const compareChars = (array, currentIndex, pressedKey, mistakes) => {
         return item;
     })
     return [resultArr, newCurrentIndex, newMistakes];
-}
+};
+
+export const restoreText = (array) => {
+ return array.map((item, index) => {
+    if (index === 0) {
+        return {
+            ...item,
+            class: 'current-char',
+        }
+    }
+    return {
+        ...item,
+        class: '',
+    };
+ });
+};

@@ -3,8 +3,11 @@ import { fetchText, increasePressingCount, setCurrentCharIndex, setMistakes, set
 import { useEffect } from "react";
 import { compareChars, getCurrentChar } from "../helpers/charTransform";
 import { styled } from "styled-components";
+import { setTimerOn } from "../redux/store/timerSlice";
+import { setIsTestFinished } from "../redux/store/testSlice";
+import Timer from "./ui/timer";
 
-const Text= () => {
+const Text= ({ onComplete}) => {
     const dispatch = useDispatch();
     const text = useSelector(state => state.textSlice.text);
     const isLoading = useSelector(state => state.textSlice.isLoading);
@@ -13,18 +16,21 @@ const Text= () => {
     const mistakes = useSelector(state => state.textSlice.mistakes);
     const pressingCount = useSelector(state => state.textSlice.pressingCount);
     const sentences = useSelector(state => state.testSlice.sentences);
+    const seconds = useSelector(state => state.timerSlice.seconds);
 
     useEffect(()=> {
         dispatch(fetchText(sentences))
     }, [dispatch])
     
-
     useEffect(()=> {
         const newText = getCurrentChar(text, currentCharIndex);
         dispatch(setText(newText));
     }, [dispatch, currentCharIndex])
 
     useEffect(() => {
+        if (pressingCount === 0 && text.length > 0) {
+            dispatch(setTimerOn(true));
+        }
         if (currentCharIndex < text.length) {
             const keyPressHandler = (evt) => {
                 const [newText, newCurrentIndex, newMistakes] = compareChars(text, currentCharIndex, evt.key, mistakes);
@@ -32,14 +38,14 @@ const Text= () => {
                 dispatch(setText(newText)); 
                 dispatch(setMistakes(newMistakes)); 
                 dispatch(increasePressingCount()); //не уверена, что норм работает
+
+                if (newCurrentIndex === text.length) {
+                    dispatch(setTimerOn(false));
+                    dispatch(setIsTestFinished(true));
+                }
                 // console.log(compareChars(text, currentCharIndex, evt.key, mistakes));
             }
             document.addEventListener('keypress', keyPressHandler);
-            window.addEventListener('keydown', (evt) => {  
-                if (evt.keyCode === 32 && evt.target === document.body) {  
-                  evt.preventDefault();  
-                } 
-            })
             return ()=> {
                 document.removeEventListener('keypress', keyPressHandler);
             }
@@ -48,18 +54,19 @@ const Text= () => {
 
     return (
         <div>
+            <Timer seconds={seconds} onComplete = {onComplete}/>
             {
                 error && 
                 <p>{error}</p>
             }
             {isLoading ?
             <p>Text is loading... </p> :
-            <div>
+            <div style={{padding: 15, border: '1px solid black'}}>
                 {text.map((item, index) => {
                     return (
-                        <span className={item.class} key={index}
-                        style={{fontColor:(item.class === 'right-char'? 'green' : 'red')}}>
-                          {item.char}</span>
+                        <SSpan className={item.class} key={index}
+                        style={{color: item.class === 'right-char'? 'green' : item.class === 'wrong-char' ? 'red' : 'black'}}>
+                          {item.char}</SSpan>
                     )
                 })}
             </div>
@@ -69,6 +76,12 @@ const Text= () => {
 
 }
 
-export default Text;
+const SSpan = styled.span`
+ font-size: 30px;
+ line-height: 1.5;
+ letter-spacing: 2px;
+ text-align: justify;
+`;
 
-const Char  = styled.span`font-color: ${props => props.class === 'right-char' ? 'green' : 'red' }`
+
+export default Text;

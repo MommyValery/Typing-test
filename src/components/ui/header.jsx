@@ -1,15 +1,25 @@
+import styled from 'styled-components';
+import logo from '../../logo.svg'; 
+
+const SHeader = styled.div`
+padding: 20px;
+justify-content: center;
+`;
 
 const Header = () => {
     return (
-        <header style={{display: 'grid', background: 'rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box', boxSizing: 'border-box', gap: '8px 8px',
-          
-        }}>
-            <div>
-                <img src="public/logo512.png" alt="logo"/>
+        <header>
+            <SHeader>
+                <img src={logo} alt="logo" width="50" height="50"/>
                 <h1>Typing Test</h1>
-            </div>
+            </SHeader>
         </header>
     )
 };
+
+
+
+
+// justify-content: center
 
 export default Header;
