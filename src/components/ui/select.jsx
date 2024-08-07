@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 const Select = ({defaultValue, options, ...props}) => {
- return (
+  return (
     <select defaultValue={defaultValue} {...props}>
-        {options.map(option => {
-            return (
-                <option key={option.value} value={option.value}>{option.name}</option>
-            );
-        })}
+      {options.map(option => {
+        return (
+          <option key={option.value} value={option.value}>{option.name}</option>
+        );
+      })}
     </select>
- )
+  )
 }
 
 const StyledSelect = styled(Select)`

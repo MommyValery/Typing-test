@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 
-const Button = ({btnText, ...props}) => {
-    return (
-        <button {...props}>{btnText}</button>
-    )
+const Button = ({ btnText, ...props }) => {
+  return (
+    <button {...props}>{btnText}</button>
+  )
 };
 
 const StyledButton = styled(Button)`
- display: inline-block;
- margin-left: 10px;
+  display: inline-block;
+  margin-left: 10px;
   padding: .75rem 1.25rem;
   border-radius: 10rem;
   color: #fff;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './components/ui/header';
 import Footer from './components/ui/footer';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setIsTestStarted, setSentences } from './redux/store/testSlice';
 import Test from './components/test';
 import ModalWindow from './components/modal-window';
@@ -23,11 +23,11 @@ body {
 
 const MainContainer = styled.main`
  padding-top: 50px;
-margin: 0 auto;
-width: 90%;
-display: block;
-justify-content: center;
-height: calc(100vh - 100px);
+ margin: 0 auto;
+ width: 90%;
+ display: block;
+ justify-content: center;
+ height: calc(100vh - 100px);
 `;
 
 
@@ -40,36 +40,37 @@ function App() {
 
   const changeSentences = (value) => dispatch(setSentences(value));
   const changeSeconds = (value) => dispatch(setSeconds(value));
- console.log('app seconds', seconds);
+
+
   return (
     <>
-    <GlobalStyle/>
+      <GlobalStyle />
       <Header />
       <MainContainer>
         {
-          isTestStarted 
-            ? <Test /> 
+          isTestStarted
+            ? <Test />
             : <ModalWindow title='Take a typing test'>
-                <label style={{fontWeight: 'bolder'}} htmlFor='select-senteces'>
-                  Choose count of sentences:
-                </label>
-                <StyledSelect 
-                  id='select-senteces'
-                  defaultValue={sentences} 
-                  options={sentencesOptions} 
-                  onChange={(event) => changeSentences(event.target.value)}
-                />
-                 <label style={{fontWeight: 'bolder'}} htmlFor='select-senteces'>
-                  Choose count of seconds:
-                </label>
-                <StyledSelect 
-                  id='select-seconds'
-                  defaultValue={seconds} 
-                  options={secondsOptions} 
-                  onChange={(event) => changeSeconds(event.target.value)}
-                />
-                <StyledButton btnText='start' onClick={setTestState} />
-              </ModalWindow>
+              <label style={{ fontWeight: 'bolder' }} htmlFor='select-senteces'>
+                Choose count of sentences:
+              </label>
+              <StyledSelect
+                id='select-senteces'
+                defaultValue={sentences}
+                options={sentencesOptions}
+                onChange={(event) => changeSentences(event.target.value)}
+              />
+              <label style={{ fontWeight: 'bolder' }} htmlFor='select-senteces'>
+                Choose count of seconds:
+              </label>
+              <StyledSelect
+                id='select-seconds'
+                defaultValue={seconds}
+                options={secondsOptions}
+                onChange={(event) => changeSeconds(event.target.value)}
+              />
+              <StyledButton btnText='start' onClick={setTestState} />
+            </ModalWindow>
         }
       </MainContainer>
       <Footer />

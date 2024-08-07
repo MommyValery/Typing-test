@@ -51,6 +51,10 @@ const Stats = ({children}) => {
                 <SP className="stats-title">accuracy</SP>
                 <SP>{accuracy} %</SP>
             </div>
+            <div>
+                <SP className="stats-title">mistakes</SP>
+                <SP>{mistakes}</SP>
+            </div>
             {children}
         </div>
     </div>

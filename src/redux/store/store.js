@@ -4,11 +4,11 @@ import textReducer from "./textSlice";
 import timerReducer from "./timerSlice";
 
 const store = configureStore({
-    reducer: {
-        testSlice: testReducer,
-        textSlice: textReducer,
-        timerSlice: timerReducer,
-    },
+  reducer: {
+    testSlice: testReducer,
+    textSlice: textReducer,
+    timerSlice: timerReducer,
+  },
 });
 
 export default store;
