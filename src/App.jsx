@@ -6,12 +6,10 @@ import { setIsTestStarted, setSentences } from './redux/store/testSlice';
 import Test from './components/test';
 import ModalWindow from './components/modal-window';
 import { setSeconds } from './redux/store/timerSlice';
-import Select from './components/ui/select';
 import { secondsOptions, sentencesOptions } from './const';
 import styled, { createGlobalStyle } from 'styled-components';
 import StyledButton from './components/ui/button';
 import StyledSelect from './components/ui/select';
-import SHeader from './components/ui/header';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -23,36 +21,6 @@ body {
  box-sizing: border-box;
 }`;
 
-
-// * {
-//   font-family: Arial;
-//   text-decoration: none;
-//   font-size: 20px;
-// }
-// .container {
-//   padding-top: 50px;
-//   margin: 0 auto;
-//   width: 100%;
-//   text-align: center;
-// }
-// h1 {
-//   text-transform: uppercase;
-//   font-size: .8rem;
-//   margin-bottom: 2rem;
-//   color: #777;
-// }
-// span {
-//   display: block;
-//   margin-top: 2rem;
-//   font-size: .7rem;
-//   color: #777;
-//   a {
-//     font-size: .7rem;
-//     color: #999;
-//     text-decoration: underline;
-//   }
-// }
-
 const MainContainer = styled.main`
  padding-top: 50px;
 margin: 0 auto;
@@ -60,7 +28,6 @@ width: 90%;
 display: block;
 justify-content: center;
 height: calc(100vh - 100px);
-
 `;
 
 
@@ -73,7 +40,7 @@ function App() {
 
   const changeSentences = (value) => dispatch(setSentences(value));
   const changeSeconds = (value) => dispatch(setSeconds(value));
-
+ console.log('app seconds', seconds);
   return (
     <>
     <GlobalStyle/>
@@ -83,8 +50,8 @@ function App() {
           isTestStarted 
             ? <Test /> 
             : <ModalWindow title='Take a typing test'>
-                <label htmlFor='select-senteces'>
-                  Choose count of sentences
+                <label style={{fontWeight: 'bolder'}} htmlFor='select-senteces'>
+                  Choose count of sentences:
                 </label>
                 <StyledSelect 
                   id='select-senteces'
@@ -92,8 +59,8 @@ function App() {
                   options={sentencesOptions} 
                   onChange={(event) => changeSentences(event.target.value)}
                 />
-                 <label htmlFor='select-senteces'>
-                  Choose count of seconds
+                 <label style={{fontWeight: 'bolder'}} htmlFor='select-senteces'>
+                  Choose count of seconds:
                 </label>
                 <StyledSelect 
                   id='select-seconds'

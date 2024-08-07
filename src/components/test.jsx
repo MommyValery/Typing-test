@@ -4,10 +4,8 @@ import Text from "./text";
 import { resetSeconds } from "../redux/store/timerSlice";
 import { resetTextState, setText } from "../redux/store/textSlice";
 import { restoreText } from "../helpers/charTransform";
-import { resetTestState, setIsTestFinished } from "../redux/store/testSlice";
+import { resetTestState } from "../redux/store/testSlice";
 import ModalWindow from "./modal-window";
-import styled from "styled-components";
-import { useState } from "react";
 import StyledButton from "./ui/button";
 
 
@@ -17,21 +15,14 @@ const Test = () => {
     const isTestFinished = useSelector(state => state.testSlice.isTestFinished);
     const text = useSelector(state => state.testSlice.text) || [];
 
-    //сброс процесса -не работает 
+    //сброс процесса
     function restart () {
         dispatch(resetSeconds());
         dispatch(resetTextState());
         dispatch(setText(restoreText(text)));
-        
-        if (isTestFinished) {
-            dispatch(setIsTestFinished(false));
-        }
-    }
-
-    function newTest () {
-        dispatch(resetTextState());
         dispatch(resetTestState());
-        dispatch(resetSeconds());
+        return <Text />
+
     }
 
     return (
@@ -41,7 +32,6 @@ const Test = () => {
                 <ModalWindow title='Test finished!'>
                     <Stats />
                     <StyledButton btnText='restart' onClick={restart} />
-                    <StyledButton btnText='new test' onClick={newTest} />
                 </ModalWindow> :
                 <Text/>
             }

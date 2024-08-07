@@ -4,7 +4,7 @@ export const sentencesOptions = [
     {value : '3', name: '3' },
     {value : '4', name: '4' },
     {value : '5', name: '5' },
-    {value : '10', name: '10' },
+
 ]
 
 export const secondsOptions = [

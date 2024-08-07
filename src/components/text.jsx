@@ -17,6 +17,8 @@ const Text= () => {
     const pressingCount = useSelector(state => state.textSlice.pressingCount);
     const sentences = useSelector(state => state.testSlice.sentences);
     const seconds = useSelector(state => state.timerSlice.seconds);
+    const isTimerOn = useSelector(state => state.timerSlice.isTimerOn);
+
 
     useEffect(()=> {
         dispatch(fetchText(sentences))
@@ -33,28 +35,30 @@ const Text= () => {
         }
         if (currentCharIndex < text.length) {
             const keyPressHandler = (evt) => {
+                if (!isTimerOn && pressingCount === 0) {
+                    dispatch(setTimerOn(true));
+                }
                 const [newText, newCurrentIndex, newMistakes] = compareChars(text, currentCharIndex, evt.key, mistakes);
                 dispatch(setCurrentCharIndex(newCurrentIndex)); 
                 dispatch(setText(newText)); 
                 dispatch(setMistakes(newMistakes)); 
-                dispatch(increasePressingCount()); //не уверена, что норм работает
+                dispatch(increasePressingCount()); 
 
                 if (newCurrentIndex === text.length) {
                     dispatch(setTimerOn(false));
                     dispatch(setIsTestFinished(true));
                 }
-                // console.log(compareChars(text, currentCharIndex, evt.key, mistakes));
             }
             document.addEventListener('keypress', keyPressHandler);
             return ()=> {
                 document.removeEventListener('keypress', keyPressHandler);
             }
         }
-    }, [dispatch, text]);
+    }, [dispatch, text, isTimerOn]);
 
     return (
         <div>
-            <Timer seconds={seconds}/>
+            <Timer />
             {
                 error && 
                 <p>{error}</p>
@@ -64,8 +68,7 @@ const Text= () => {
             <div style={{padding: 15, border: '1px solid black'}}>
                 {text.map((item, index) => {
                     return (
-                        <SSpan className={item.class} key={index}
-                        style={{color: item.class === 'right-char'? 'green' : item.class === 'wrong-char' ? 'red' : 'black'}}>
+                        <SSpan className={item.class} key={index}>
                           {item.char}</SSpan>
                     )
                 })}
@@ -81,6 +84,15 @@ const SSpan = styled.span`
  line-height: 1.5;
  letter-spacing: 2px;
  text-align: justify;
+ &.right-char {
+ color: green;
+ }
+ &.wrong-char {
+ color: red;
+ }
+ &.current-char {
+ text-decoration: underline;
+ }
 `;
 
 

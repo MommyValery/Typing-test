@@ -8,9 +8,12 @@ export function accuracyCounting (mistakes, pressingCount) {
 
 //принимает количество правильнвх символов и секунды, возвращает скорость
 export function speedCounting (correctChars, seconds) {
- if (seconds > 0) {
+   console.log(correctChars);
+   console.log(seconds);
+ if (seconds) {
     const words = correctChars / 5;
     const minutes = seconds / 60;
+    console.log(words/minutes);
     return (words/minutes).toFixed(1);
  }
  return '0.0';

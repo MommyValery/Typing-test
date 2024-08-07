@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components"
 import { setIsTestFinished } from "../../redux/store/testSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { decreaseSeconds, setSeconds } from "../../redux/store/timerSlice";
 
 const TimerContainer = styled.div`
 padding-left: 20px;
@@ -14,26 +15,31 @@ font-size: 1.5rem;
 color: #ffffff;
 `;
 
-const Timer = ({seconds}) => {
-  const [timeLeft, setTimeLeft] = useState(seconds);
+const Timer = () => {
   const dispatch = useDispatch();
+  const seconds = useSelector(state => state.timerSlice.seconds);
+  const isTimerOn = useSelector(state => state.timerSlice.isTimerOn);
 
  useEffect(()=> {
-    if (timeLeft === 0 ) {
-        dispatch(setIsTestFinished(true));
-        return;
+    let timerId;
+
+if (isTimerOn && seconds>0) {
+ timerId = setInterval(() => {
+    if(seconds > 0) {
+        dispatch(decreaseSeconds());
     }
+ }, 1000);
+}
+    if (seconds === 0 ) {
+        dispatch(setIsTestFinished(true));
+    }
+    return () => clearInterval(timerId);
+}, [isTimerOn, seconds, dispatch]);
 
-    const timerId = setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
- }, 1000)
- return () => clearInterval(timerId);
-
- }, [timeLeft]);
 
  return (
     <TimerContainer>
-        <TimerDisplay>{timeLeft} секунд</TimerDisplay>
+        <TimerDisplay>{seconds} секунд</TimerDisplay>
     </TimerContainer>
  )
 }

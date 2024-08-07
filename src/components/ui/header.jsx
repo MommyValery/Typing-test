@@ -17,9 +17,4 @@ const Header = () => {
     )
 };
 
-
-
-
-// justify-content: center
-
 export default Header;

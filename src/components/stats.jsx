@@ -2,6 +2,15 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { accuracyCounting, speedCounting } from "../helpers/statsCounting";
 import { decreaseSeconds } from "../redux/store/timerSlice";
+import styled from "styled-components";
+
+const SP = styled.p`
+font: 25px Arial, sans-serif;
+&.stats-title {
+weight: bold;
+font-size: 30px;
+}
+`;
 
 const Stats = ({children}) => {
   const dispatch = useDispatch();
@@ -9,22 +18,25 @@ const Stats = ({children}) => {
   const pressingCount = useSelector(state => state.textSlice.pressingCount);
   const seconds = useSelector(state => state.timerSlice.seconds);
   const isTimerOn = useSelector(state => state.timerSlice.isTimerOn);
+  const timeChoice = useSelector(state => state.timerSlice.timeChoice);
   const [speed, setSpeed] = useState('0.0');
   const [accuracy, setAccuracy] = useState('0.0');
 
 // подсчет скорости и точности
   useEffect(()=>{
-    console.log(pressingCount);
+    console.log(timeChoice);
     const correctChars = pressingCount - mistakes;
     setAccuracy(accuracyCounting(mistakes, pressingCount));
-    setSpeed(speedCounting(correctChars, seconds));
-  }, [mistakes, pressingCount, seconds])
+    setSpeed(speedCounting(correctChars, timeChoice));
+  }, [mistakes, pressingCount, timeChoice])
 
 //уменьшение количества секунд
   useEffect (() => {
     if (isTimerOn) {
         const timer = setTimeout(() => {
+          if (seconds > 0) {
             dispatch(decreaseSeconds());
+          }
         }, 1000);
         return () => clearTimeout(timer);
     }
@@ -33,11 +45,11 @@ const Stats = ({children}) => {
   return (
     <div>
         <div>
-            <p>speed</p>
-            <p>{speed} WPM</p>
+            <SP className="stats-title">speed</SP>
+            <SP>{speed} WPM</SP>
             <div>
-                <p>accuracy</p>
-                <p>{accuracy} %</p>
+                <SP className="stats-title">accuracy</SP>
+                <SP>{accuracy} %</SP>
             </div>
             {children}
         </div>
