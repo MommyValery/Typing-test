@@ -1,46 +1,30 @@
-# Getting Started with Create React App
+Тестовое на фронта
+Задание:
+Создать приложение "Typing Speed Trainer" на React, которое оценит скорость печати пользователя. Приложение должно предоставлять пользователю текст для ввода, показывать правильные и неправильные символы разными цветами, а также отображать статистику по скорости печати и числу ошибок.
+Пример сайта: https://monkeytype.com/
+Основные требования:
+1. React:
+- Использовать React для построения интерфейса приложения.
+- Использовать любой стейт-менеджер на выбор (Redux, MobX, Context API и т.д.).
+2. Функциональность:
+- Отображение текста для ввода. Текст можно брать из любого источника (например, заранее определенный массив строк).
+- Подсветка правильных и неправильных символов разными цветами в реальном времени, пока пользователь вводит текст.
+- Подсчет скорости печати (слов в минуту, WPM).
+- Отображение количества ошибок (неправильно введенных символов).
+3. Интерфейс:
+- Должен быть простой и интуитивно понятный интерфейс.
+- Разметка и стилизация должны быть выполнены с помощью CSS-in-JS или CSS-фреймворка (например, styled-components, CSS модули, или любая другая технология на ваше усмотрение).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Адаптивный дизайн, чтобы приложение хорошо отображалось на мобильных устройствах.
 
-## Available Scripts
+4. **Производительность**:
 
-In the project directory, you can run:
+- Обеспечить быструю работу приложения, чтобы оно не задерживалось при вводе текста.
 
-### `npm start`
+- Минимизировать количество перерисовок компонентов React.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+5. **Дополнительно**:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Должно быть сообщение или экран с результатами после завершения ввода текста, показывающий WPM и количество ошибок.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Добавить возможность перезапустить упражнение.
